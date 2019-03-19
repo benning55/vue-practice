@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="vue-app-one">
+    <h2>{{title}}</h2>
+    <h2>{{greet}}</h2>
+    <h2>GetSomeRefs</h2>
+    <input type="text" ref="input">
+    <button type="submit" v-on:click="handle">Refs</button>
+    <p>Your Fav Food: {{output}}</p>
+  </div>
+  <br>
+  <div id="vue-app-two">
+    <h2>{{title}}</h2>
+    <h2>{{greet}}</h2>
+    <greeting></greeting>
+  </div>
+
+  <script>
+    Vue.component('greeting', {
+      template: '<p>Hello {{name}}.<button v-on:click="changeName">change Name</button></p>',
+      data: function () {
+        return {
+          name: 'Muse'
+        }
+      },
+      methods: {
+        changeName: function () {
+          this.name = 'fucking Mario';
+        }
+      }
+    });
+    var one = new Vue({
+      el: "#vue-app-one",
+      data() {
+        return {
+          title: "Vue App One",
+          output: 'favorite food'
+        };
+      },
+      methods: {
+        handle: function () {
+          console.log(this.$refs.input.value);
+          this.output = this.$refs.input.value;
+        }
+      },
+      computed: {
+        greet: function () {
+          return 'this is Number 1';
+        }
+      }
+    });
+
+    var two = new Vue({
+      el: "#vue-app-two",
+      data() {
+        return {
+          title: "Vue App Two"
+        };
+      },
+      methods: {},
+      computed: {
+        greet: function () {
+          return 'This is NUmber 2';
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>
